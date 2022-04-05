@@ -5,7 +5,7 @@ export const development = {
 	url: process.env.POSTGRESQL_URL,
 	options: <Options>{
 		minifyAliases: true,
-		logging: false,
+		logging: true,
 		pool: {
 			max: 4
 		}
