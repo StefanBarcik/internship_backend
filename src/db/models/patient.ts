@@ -1,4 +1,6 @@
 import {Model, Sequelize, DataTypes, DateDataType, EnumDataType, StringDataType} from "sequelize";
+import {Models} from "../index";
+import {DiagnoseModel} from "./diagnose";
 
 
 export class PatientModel extends Model {
@@ -13,7 +15,7 @@ export class PatientModel extends Model {
 
     // foreign keys
     diagnoseID: number
-
+    diagnose: DiagnoseModel
 }
 
 export default (sequelize: Sequelize, modelName: string) => {
@@ -70,7 +72,7 @@ export default (sequelize: Sequelize, modelName: string) => {
     );
 
 
-    (PatientModel as any).associate = (models: any) => {
+    (PatientModel as any).associate = (models: Models) => {
         PatientModel.belongsTo(models.Diagnose, { foreignKey: 'diagnoseID' })
     }
 

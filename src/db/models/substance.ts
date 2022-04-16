@@ -1,4 +1,6 @@
 import {Model, Sequelize, DataTypes, EnumDataType, DoubleDataType} from "sequelize";
+import {Models} from "../index";
+import {DiagnoseModel} from "./diagnose";
 
 export class SubstanceModel extends Model {
     id: number
@@ -7,6 +9,8 @@ export class SubstanceModel extends Model {
     halfLife: DoubleDataType
 
     // foreign keys
+
+    diagnose: DiagnoseModel[]
 }
 
 export default (sequelize: Sequelize, modelName: string) => {
@@ -24,7 +28,7 @@ export default (sequelize: Sequelize, modelName: string) => {
                 allowNull: false,
             },
             timeUnit: {
-                type: DataTypes.ENUM('1','2'),
+                type: DataTypes.ENUM('SECOND', 'MINUTE', 'HOUR', 'DAY'),
                 allowNull: false,
             },
             halfLife: {
@@ -42,9 +46,8 @@ export default (sequelize: Sequelize, modelName: string) => {
         }
     );
 
-
-    (SubstanceModel as any).associate = (models : any) => {
-        SubstanceModel.hasOne(models.Diagnose, { foreignKey: 'SubstanceID' })
+    (SubstanceModel as any).associate = (models : Models) => {
+        SubstanceModel.hasMany(models.Diagnose, { foreignKey: 'substanceID' })
     }
 
     return SubstanceModel
