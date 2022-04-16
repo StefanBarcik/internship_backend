@@ -11,10 +11,16 @@ export const schemaGetPatientId = Joi.object({
 });
 
 export const getOne = async (req: Request, res: Response) => {
-    const {params, body, query} = req
 
     const patient: PatientModel = await PatientModel.findOne({where: {id: req.params.id}})
-    res.status(200).json({
-        patient
-    })
+    if (patient) {
+        res.status(200).json({
+            patient
+        })
+    } else {
+        res.status(404).json({
+            'message' : 'Patient not found'
+        })
+    }
+
 }

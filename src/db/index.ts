@@ -22,7 +22,6 @@ const modelsBuilder = (instance: Sequelize) => ({
     Patient: patient(instance, 'patient')
 })
 
-
 const buildModels = () => {
     const models = modelsBuilder(sequelize)
 

@@ -21,11 +21,24 @@ export const schemaUpdatePatient = Joi.object({
 
 
 export const updateOne = async (req: Request, res: Response) => {
-    const {body, query, params} = req
+    const {body, params} = req
     const patient: PatientModel = await PatientModel.findOne({where: {id: params.id}})
-    patient.update({firstName: body.firstName, lastName: body.lastName})
-    res.status(200).json({
-        message: 'Patient updated',
-        patient
-    })
+    if (patient) {
+        patient.update({firstName: body.firstName ,
+            lastName: body.lastName,
+            birthdate: body.birthdate,
+            weight: body.weight,
+            height: body.height,
+            identificationNumber: body.identificationNumber,
+            gender: body.gender,
+            diagnoseID: body.diagnoseID})
+        res.status(200).json({
+            message: 'Patient updated',
+            patient
+        })
+    } else {
+        res.status(404).json({
+            message: 'Patient with id ' + params.id + ' not found',
+        })
+    }
 }
