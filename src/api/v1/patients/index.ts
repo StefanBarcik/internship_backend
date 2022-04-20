@@ -6,6 +6,7 @@ import * as GetPatientById from './getPatientById'
 import * as AddPatient from './addPatient'
 import * as UpdatePatient from './updatePatient'
 import * as DeletePatient from  './deletePatient'
+import * as GetPatientsBySubstanceAmount from './getPatientsBySubstanceAmount'
 import {schemaAddPatient} from "./addPatient";
 import {schemaDeletePatient} from "./deletePatient";
 import {schemaUpdatePatient} from "./updatePatient";
@@ -15,11 +16,13 @@ import {schemaGetPatients} from "./getPatients";
 const router = Router()
 
 export default () => {
+    router.get('/substanceAmount', GetPatientsBySubstanceAmount.getAllPatientsBySubstanceAmount)
     router.get('/', validationMiddleware(schemaGetPatients), GetPatients.getAll)
     router.get('/:id', validationMiddleware(schemaGetPatientId), GetPatientById.getOne)
     router.post('/', validationMiddleware(schemaAddPatient), AddPatient.addOne)
     router.patch('/:id', validationMiddleware(schemaUpdatePatient), UpdatePatient.updateOne)
     router.delete('/:id', validationMiddleware(schemaDeletePatient), DeletePatient.delOne)
+
 
     return router
 }
