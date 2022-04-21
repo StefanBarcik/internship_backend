@@ -30,11 +30,9 @@ export const responseSchema = Joi.object({
         ).required(),
 })
 
-
-
 export const getAll = async (req: Request, res: Response) => {
     const {gender, order, limit, page} = req.query
-    const options = {
+    /*const options = {
         where: {
             gender: {}
         },
@@ -45,7 +43,7 @@ export const getAll = async (req: Request, res: Response) => {
     }
     if (limit !== undefined) {
         options.limit = Number(limit)
-    }
+    }*/
     const patients: PatientModel[] = await PatientModel.findAll() //{{where: {gender}, limit : Number(limit)}}
 
     res.status(200).json({
