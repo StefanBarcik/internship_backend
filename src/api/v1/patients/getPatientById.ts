@@ -16,8 +16,6 @@ export const getOne = async (req: Request, res: Response) => {
     const patient: PatientModel = await PatientModel.findOne({where: {id: params.id}})
     if (patient) {
         if(Number(params.id) !== user.patientID && user.role === 'USER') {
-            console.log(params.id)
-            console.log(user.patientID)
             res.status(403).json({
                 'message' : 'This user do not have permission to read this patient data'
             })
